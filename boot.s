@@ -3,6 +3,7 @@
 
     _start:
         jmp _start
+        ljmpw $0xFFFFFFF0, $0
 
     .org 510
     .byte 0x55
