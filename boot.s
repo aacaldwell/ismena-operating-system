@@ -2,17 +2,21 @@
     .global _start
 
     _start:
-        mov $0x0e, %ah
-        mov $msg, %bx
-        mov (%bx), %al
+        mov $msg, %si
+        mov $0xe, %ah
+    
+    print_char:
+        lodsb
+        cmp $0, %al
+        je done
         int $0x10
+        jmp print_char
+
+    done:
+        hlt
 
     msg: .ascii "Hello World!"
 
     .org 510
     .byte 0x55
     .byte 0xaa
-
-    .hang:
-        hlt
-        jmp .hang
