@@ -2,8 +2,12 @@
     .global _start
 
     _start:
-        mov $0x0e41, %ax
+        mov $0x0e, %ah
+        mov $msg, %bx
+        mov (%bx), %al
         int $0x10
+
+    msg: .ascii "Hello World!"
 
     .org 510
     .byte 0x55
