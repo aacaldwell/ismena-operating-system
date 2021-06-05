@@ -1,10 +1,29 @@
 ENTRY(_start)
 SECTIONS
 {
+    . = 0x7C00;
+    .text : AT(0x7C00)
+    {
+        _text = .;
+        *(.text);
+        _text_end = .;
+    }
     .data :
     {
-        *(.data);
+        _data = .;
         *(.bss);
-        *(.rodata);
+        *(.bss*);
+        *(.data);
+        *(.rodata*);
+        *(COMMON)
+        _data_end = .;
+    }
+    /DISCARD/ :
+    {
+        *(.note*);
+        *(.iplt*);
+        *(.igot*);
+        *(.rel*);
+        *(.comment);
     }
 }
