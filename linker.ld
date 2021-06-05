@@ -1,29 +1,28 @@
 ENTRY(_start)
 SECTIONS
 {
-    . = 0x7C00;
-    .text : AT(0x7C00)
+    . = 1M;
+    .text : ALIGN(4K)
     {
-        _text = .;
-        *(.text);
-        _text_end = .;
+        *(.multiboot)
+        *(.text)
     }
-    .data :
+    .rodata : ALIGN(4K)
     {
-        _data = .;
-        *(.bss);
-        *(.bss*);
-        *(.data);
-        *(.rodata*);
+        *(.data)
+        *(.bootstrap_stack)
+    }
+    .bss : ALIGN(4K)
+    {
         *(COMMON)
-        _data_end = .;
+        *(.bss)
     }
     /DISCARD/ :
     {
-        *(.note*);
-        *(.iplt*);
-        *(.igot*);
-        *(.rel*);
-        *(.comment);
+        *(.note*)
+        *(.iplt*)
+        *(.igot*)
+        *(.rel*)
+        *(.comment)
     }
 }

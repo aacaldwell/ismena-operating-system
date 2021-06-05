@@ -1,22 +1,34 @@
     .code16
-    .global _start
 
-    _start:
-        mov $msg, %si
-        mov $0xe, %ah
+    .set ALIGN, 1<<0
+    .set MEMINFO, 1<<1
+    .set FLAGS, ALIGN | MEMINFO
+    .set MAGIC, 0x1BADB002
+    .set CHECKSUM, -(MAGIC + FLAGS)
+
+    .section .multiboot
+    .align 4
+    .long MAGIC
+    .long FLAGS
+    .long CHECKSUM
+
+    .section .bootstrap_stack
+    .align 16
+    .stack_bottom:
+        .skip 16384
+    stack_top:
     
-    print_char:
-        lodsb
-        cmp $0, %al
-        je done
-        int $0x10
-        jmp print_char
+    .section .text
+    .global _start
+    .type _start, @function
+    _start:
+        mov $stack_top, %esp
 
-    done:
+        .extern kmain
+        call kmain
+
+        cli
+
+    .hang:
         hlt
-
-    msg: .ascii "Hello World!"
-
-    .org 510
-    .byte 0x55
-    .byte 0xaa
+        jmp .hang
