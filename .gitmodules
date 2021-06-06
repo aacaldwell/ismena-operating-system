@@ -1,0 +1,3 @@
+[submodule "ismenaos-libc"]
+	path = ismenaos-libc
+	url = git@gitlab.com:astraeaos-development/ismenaos-libc.git
