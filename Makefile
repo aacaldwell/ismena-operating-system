@@ -7,14 +7,14 @@ LINKER_SCRIPT := ismenaos-kernel/src/arch/$(ARCH)/linker.ld
 
 BOOT_SOURCE_FILE := ismenaos-kernel/src/arch/$(ARCH)/boot.s
 
-SWIFT_SOURCE_FILES := ismenaos-kernel/src/kernel/main.swift $(shell find src -name "*.swift" ! -name "main.swift")
-SWIFT_BC_FILES := $(patsubst src/%.swift, \
+SWIFT_SOURCE_FILES := ismenaos-kernel/src/kernel/main.swift $(shell find kernel -name "*.swift" ! -name "main.swift")
+SWIFT_BC_FILES := $(patsubst ismenaos-kernel/src/kernel/%.swift, \
     build/%.bc, $(SWIFT_SOURCE_FILES))
 SWIFT_OBJECT_FILES := $(patsubst src/%.swift, \
     build/%.o, $(SWIFT_SOURCE_FILES))
 
-LIBC_SOURCE_FILES := $(shell find ismenaos-kernel/libc/src -name "*.c")
-LIBC_OBJECT_FILES := $(patsubst ismenaos-kernel/libc/src/%.c, \
+LIBC_SOURCE_FILES := $(shell find ismenaos-libc/libc/src -name "*.c")
+LIBC_OBJECT_FILES := $(patsubst ismenaos-libc/libc/src/%.c, \
     build/libc/%.o, $(LIBC_SOURCE_FILES))
 
 SWIFT = swiftc
