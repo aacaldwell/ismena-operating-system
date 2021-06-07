@@ -30,12 +30,12 @@ OBJCOPY = llvm-obcopy
 all: $(boot) $(kernel)
 
 $(boot):
-    @mkdir -p $(shell dirname $@)
-    @$(CC) $(CFLAGS) $(BOOT_SOURCE_FILE) -o $(boot)
+	@mkdir -p $(shell dirname $@)
+	@$(CC) $(CFLAGS) $(BOOT_SOURCE_FILE) -o $(boot)
 
 $(kernel): $(LIBC_OBJECT_FILES) $(SWIFT_OBJECT_FILES) $(LINKER_SCRIPT)
-    @$(LD) -T $(LINKER_SCRIPT) -o $(KERNEL_ELF) $(LIBC_OBJECT_FILES) $(SWIFT_OBJECT_FILES)
-    @$(OBJCOPY) $(KERNEL_ELF) -O binary $(kernel)
+	@$(LD) -T $(LINKER_SCRIPT) -o $(KERNEL_ELF) $(LIBC_OBJECT_FILES) $(SWIFT_OBJECT_FILES)
+	@$(OBJCOPY) $(KERNEL_ELF) -O binary $(kernel)
 
 $(SWIFT_OBJECT_FILES):
 	@$(foreach var,$(SWIFT_BC_FILES),mkdir -p $(shell dirname $(var));)
