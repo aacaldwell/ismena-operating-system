@@ -7,7 +7,7 @@ LINKER_SCRIPT := ismenaos-kernel/src/arch/$(ARCH)/linker.ld
 
 BOOT_SOURCE_FILE := ismenaos-kernel/src/arch/$(ARCH)/boot.s
 
-SWIFT_SOURCE_FILES := ismenaos-kernel/src/kernel/main.swift $(shell find kernel -name "*.swift" ! -name "main.swift")
+SWIFT_SOURCE_FILES := ismenaos-kernel/src/kernel/main.swift $(shell find ismenaos-kernel/src/kernel -name "*.swift" ! -name "main.swift")
 SWIFT_BC_FILES := $(patsubst ismenaos-kernel/src/kernel/%.swift, \
     build/%.bc, $(SWIFT_SOURCE_FILES))
 SWIFT_OBJECT_FILES := $(patsubst src/%.swift, \
