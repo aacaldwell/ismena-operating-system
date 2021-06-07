@@ -18,7 +18,7 @@ LIBC_OBJECT_FILES := $(patsubst ismenaos-libc/libc/src/%.c, \
     build/libc/%.o, $(LIBC_SOURCE_FILES))
 
 SWIFT = swiftc
-SWIFTFLAGS = -emit-library -emit-bc -static-stdlib main.swift
+SWIFTFLAGS = -emit-library -emit-bc -static-stdlib
 
 CC = clang
 CFLAGS  = -c -g -m16 -march=i386 --target=i386-elf
