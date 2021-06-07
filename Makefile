@@ -21,7 +21,7 @@ CFLAGS  = -c -g -m16 -march=i386 --target=i386-elf
 LD = ld.lld
 OBJCOPY = llvm-obcopy
 
-.PHONY all
+.PHONY: all
 
 all: $(boot) $(kernel)
 
